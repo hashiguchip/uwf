@@ -1,37 +1,29 @@
 <template>
     <div class="container">
-        <div>
-            <logo />
-            <h1 class="title">uwf</h1>
-            <h2 class="subtitle">uwf site</h2>
-            <div class="links">
-                <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-                    Documentation
-                </a>
-                <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">
-                    GitHub
-                </a>
-            </div>
-        </div>
+        <h1 class="title">UWF</h1>
     </div>
 </template>
 
 <script lang="ts">
-// import Logo from '~/components/Logo.vue';
+import { Vue, Component } from 'vue-property-decorator';
+import Logo from '~/components/Logo.vue';
 //
 // export default {
 //     components: {
 //         Logo,
 //     },
 // };
-import { Vue, Component } from 'vue-property-decorator';
 
 // interface User {
 //     firstName: string;
 //     lastName: number;
 // }
 
-@Component
+@Component({
+    components: {
+        Logo,
+    },
+})
 export default class Index extends Vue {
     // @Prop({ type: Object, required: true }) readonly user!: User;
     //
@@ -43,4 +35,21 @@ export default class Index extends Vue {
 }
 </script>
 
-<style lang="sass"></style>
+<style lang="scss">
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: $mainColor;
+    & > .title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+.title {
+    font-size: 324px;
+    display: inline-block;
+}
+</style>
