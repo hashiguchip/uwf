@@ -5,20 +5,20 @@
         "moduleResolution": "node",
         "lib": ["esnext", "esnext.asynciterable", "dom"],
         "esModuleInterop": true,
+        "experimentalDecorators": true,
         "allowJs": true,
         "sourceMap": true,
-        "strict": true,
+        "strict": false,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
         "noEmit": true,
         "baseUrl": ".",
+        "resolveJsonModule": true,
         "paths": {
             "~/*": ["./*"],
             "@/*": ["./*"]
         },
         "types": ["@types/node", "@nuxt/types"]
     },
-    "exclude": ["node_modules"],
-    "compilerOptions": {
-        "experimentalDecorators": true,
-        "allowJs": true
-    }
+    "exclude": ["node_modules"]
 }
