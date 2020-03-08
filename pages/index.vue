@@ -1,18 +1,44 @@
 <template>
     <div class="container">
         <h1 class="title">UWF</h1>
-        <button @click="mute" class="mute">mute</button>
+        <button class="mute" @click="mute">mute</button>
+        <div class="loading" v-if="loading">読込中です....</div>
+        <div class="background">
+            <img :src="image" />
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import { loadImage } from './imageLoader';
 import { soundPlayer } from '@/modules/SoundPlayer/main';
 
 @Component
 export default class YourComponent extends Vue {
-    mounted() {
-        soundPlayer.play();
+    loading = true;
+    image = '';
+    setImage() {
+        this.image =
+            this.image !== require('~/assets/image/maeda_akira.png')
+                ? require('~/assets/image/maeda_akira.png')
+                : require('~/assets/image/takada_nobuhiko.jpg');
+    }
+    async mounted() {
+        try {
+            await Promise.all([
+                loadImage(require('~/assets/image/maeda_akira.png')),
+                loadImage(require('~/assets/image/takada_nobuhiko.jpg')),
+            ]);
+            this.loading = false;
+            this.setImage();
+            setInterval(() => {
+                this.setImage();
+            }, 2000);
+            await soundPlayer.play();
+        } catch (e) {
+            console.log(e);
+        }
     }
     beforeDestroy(): void {
         soundPlayer.destroy();
@@ -24,6 +50,10 @@ export default class YourComponent extends Vue {
 </script>
 
 <style lang="scss">
+.loading {
+    color: white;
+    font-size: 33px;
+}
 .container {
     position: relative;
     width: 100vw;
